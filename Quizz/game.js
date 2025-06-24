@@ -3,6 +3,7 @@ import {quizz_film } from './questions.js';
 const questionElement = document.getElementById('question-text');
 const optionsContainer = document.getElementById('options-container');
 const nextButton = document.getElementById('next-button'); // Ajoute un bouton dans le fichier HTML
+const replayButton = document.getElementById('replay-button'); // Ajoute un bouton rejouer
 let currentQuestionIndex = 0;
 
 function loadQuestion() {
@@ -32,9 +33,22 @@ nextButton.addEventListener('click', () => {
   } else {
     questionElement.innerText = "C'est fini, merci d'avoir participé !";
     optionsContainer.innerHTML = '';
-    nextButton.style.display = 'none';
+    nextButton.style.display = 'none'; // Afficher le bouton Suivant
+    replayButton.style.display = 'inline-block'; // Afficher le bouton Rejouer
   }
 });
 
-// Charger la première question au chargement de la page
+// Fonction pour réinitialiser le quiz
+replayButton.addEventListener('click', () => {
+  // Réinitialiser l'index 
+  currentQuestionIndex = 0;
+
+  // Cacher le bouton Rejouer et afficher le bouton Suivant
+    nextButton.style.display = 'inline-block';
+    replayButton.style.display = 'none';
+  
+  // Recharger la première question
+  loadQuestion();
+});
+
 loadQuestion();
