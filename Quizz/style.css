@@ -1,106 +1,170 @@
 body {
-
-    background-image: url("Background.jpg");
-    background-size: cover;
-    height: auto;
-    /* width:540px; */
+    margin: 0;
+    padding: 0;
+     /* Supprime les marges par défaut du navigateur. */
+    background-image: url("img/Background.jpg");
+    /* Redimensionne pour couvrir tout l'écran */
+    background-size: cover; 
+    background-position: center;
+    /* Hauteur = 95% de la hauteur de la fenêtre */
+    height: 95vh;
+    /* Largeur = 99% de la largeur de la fenêtre */
+    width: 99vw;
+    /* Change le curseur en img quand la souris est neutre */
+    cursor: url("img/PopCorn.png"), auto;
+    
 
 }
 
 .question {
-    font-size : 60px;
+  /* Définit la taille de la police */
+    font-size : 60px; 
+  /* Applique un arrondi aux coins de l'élément */
     border-radius: 5%;
+  /* Centre horizontalement le texte à l’intérieur de l’élément. */
     text-align: center;
-    color: #6b6963;
-    
+  /* Couleur du texte */
+    color: #FFCC00;
+  /* Crée un dégradé linéaire comme image de fond. */
+    background-image: linear-gradient(144deg,#000000, #414239 50%,#8a9697);
+       
 }
 
 .options {
- 
     margin: auto;
+    /* Ajoute un espacement vertical de 8% de la hauteur du conteneur parent en haut de l’élément. */
     margin-top :8%;
+    /* Créé une grille qui permet d'organiser les éléments enfants */
     display: grid;
+    /* Largeur = 99% de la largeur de la fenêtre */
     width: 800px;
+    /* Permet de définir les colonnes et les lignes et leurs placements */
     grid-template-columns: 400px 400px;
     grid-template-rows: 200px 200px;
-    /* /* align-items: start; */
+    /* Fait un espace égal entre les éléments */
     justify-content:space-between;
+    /* Fait un espace de 30px entre les éléments */
     gap: 30px;
-
 }
 
 .options > button {
+  /*Force le bouton à utiliser l'apparence native du système (chrome, opéra, safari..) */
     appearance: button;
+  /* Définit une couleur de fond  */
     background-color: #cad3d3;
+    /* Créé un bord solide mais invisible */
     border: solid transparent;
+    /* Applique des coins arrondis */
     border-radius: 16px;
+    /* Définit une bordure en bas, fait un effet relief */
     border-width: 0 0 4px;
+    /* Fait en sorte que les paddings et bordures soient incls dans la largeur et hauteur de l'élément */
     box-sizing: border-box;
     color: #FFFFFF;
-    cursor: pointer;
+    /* Change le curseur en img au survol, signalant un élément cliquable */
+    cursor: url("img/Clapperboard.png"), pointer;
+    /* Permet au bouton d'être sur la meme ligne que d'autres éléments tout en gardant un comportement de bloc */
     display: inline-block;
+    /* Police d'écriture OCR A Std, sinon monospace si elle n'est pas disponible */
     font-family: OCR A Std, monospace;
+    /* Taille de la police */
     font-size: 20px;
+    /* Texte en gras */
     font-weight: 700;
+    /* Espacement entre les lettres */
     letter-spacing: .8px;
+    /* Hauteur de ligne 20 pixels correspond à la hauteur de texte */
     line-height: 20px;
+    /* 0 supprime toute marge par défaut du bouton */
     margin: 0;
+    /* Supprime le contour de focus par défaut (souvent un halo bleu) */
     outline: none;
+    /* Permet aux contenus débordants d'étre visibles */
     overflow: visible;
+    /* Ajoute 13px en haut et en bas, 16px à gauche et à droite   */
     padding: 13px 16px;
+    /* Centre le texte à l'intérieur du bouton */
     text-align: center;
+    /* Transforme tout le texte en majuscules */
     text-transform: uppercase;
+    /* Optimise le bouton pour les écrans tactiles, désactivant les gestes comme zoom/pan sur cet élément. */
     touch-action: manipulation;
+    /* Astuce pour forcer l'accélération GPU, ce qui peut améliorer les performances d’animation. */
     transform: translateZ(0);
+    /* Si un effet filter est appliqué (ex. : flou, luminosité), il se fera en 0,2 seconde. */
     transition: filter .2s;
+     /* Empêche l’utilisateur de sélectionner le texte du bouton (avec la souris ou au doigt). */
     user-select: none;
     -webkit-user-select: none;
+    /* Aligne verticalement le bouton au milieu de la ligne (utile si affiché avec d’autres éléments inline). */
     vertical-align: middle;
+    /* Empêche le retour à la ligne du texte à l’intérieur du bouton. */
     white-space: nowrap;
+    /* Le bouton occupe toute la largeur de son conteneur parent. */
     width: 100%;
 }
 
 .button-container{
+  /* Centre horizontalement le contenu à l’intérieur de l’élément avec la classe */
     text-align: center;
 }
 
-.options > button:after {
+.options > button:after { /* Cible le pseudo-élément :after (un élément virtuel ajouté après le contenu du bouton) pour tous les <button> directement à l’intérieur de .options. */
+  /* Fait en sorte que le fond ne déborde pas dans les bordures. Il est limité à la zone de padding. */
   background-clip: padding-box;
-  background-color: rgb(39, 39, 39)  ;
+  background-image: linear-gradient(144deg,#000000, #414239 50%,#8a9697);  ;
+  /* Applique un bord invisible */
   border: solid transparent;
+  /* Rend les coins arrondis (16px) */
   border-radius: 16px;
+  /* N’applique une bordure que sur le bas (4px), ce qui peut créer un effet d’ombre ou de profondeur. */
   border-width: 0 0 4px;
+  /* Décale le pseudo-élément 4 pixels sous le bas du bouton. Cela donne un effet "d’ombre portée" ou de profondeur. */
   bottom: -4px;
+  /* Indispensable : le pseudo-élément :after doit avoir du contenu (même vide) pour exister dans le rendu. */
   content: "";
+  /* Le pseudo-élément s'étend de bord à bord du bouton (de gauche à droite et en haut). */
   left: 0;
-  position: absolute;
   right: 0;
   top: 0;
+  /* Positionne ce pseudo-élément de façon absolue par rapport à son parent positionné (le <button> doit donc être position: relative pour que ça fonctionne correctement). */
+  position: absolute;
+  /* Place l’élément derrière le bouton, donc il est visible comme un arrière-plan ou une ombre. */
   z-index: -1;
 }
 
 .options > button:focus {
+  /* Sélecteur : cible les boutons (<button>) directement enfants d’un élément ayant la classe .options, lorsqu'ils sont focus 
+  (sélectionnés, par exemple via le clavier ou clic). */
+
+  /* permet à l’utilisateur de sélectionner le texte du bouton (par défaut, certains éléments désactivent cette sélection) */
   user-select: auto;
 }
 
 .options > button:hover:not(:disabled) {
+  /* rend le bouton 10% plus lumineux. */
   filter: brightness(1.1);
+  /* version pour compatibilité avec les anciens navigateurs WebKit */
   -webkit-filter: brightness(1.1);
 }
 
-.options > button:disabled {
+.options > button:disabled { /* Cible les boutons désactivés : disabled. */
+   /* rétablit le curseur par défaut (au lieu d’un curseur "interdit" ou "pointer"). */
   cursor: auto;
 }
 
-.options > button:active {
+.options > button:active {  /* Cible les boutons lorsqu’ils sont activés (clic en cours). */
+  /* ajoute une bordure de 4px seulement en haut (effet visuel de clic) */
   border-width: 4px 0 0;
+  /* supprime l’arrière-plan lors du clic. */
   background: none;
 }
 
 
-#next-button {
+#next-button { 
+  /* Style Principale du bouton */
   align-items: center;
-  background-image: linear-gradient(144deg,#37313b, #d2dda3 50%,#8a9697);
+  background-image: linear-gradient(144deg,#000000, #414239 50%,#8a9697);
   border: 0;
   border-radius: 8px;
   box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
@@ -122,14 +186,16 @@ body {
   margin-top: 50px;
   font-size: 30px ;
   background-color: rgb(0, 0, 2);
+  cursor: url("Clapperboard.png"), pointer;
 }
-
+/* Supprime l’encadrement par défaut du navigateur sur survol ou clic. */
 #next-button:active,
 #next-button:hover {
   outline: 0;
 }
 
 #next-button span {
+  /* Contenu du bouton (ex: un <span> intérieur) */
   background-color: rgb(0, 0, 2);
   padding: 16px 24px;
   border-radius: 6px;
@@ -137,13 +203,27 @@ body {
   height: 100%;
   transition: 300ms;
 }
-#next-button:hover span {
+#next-button:hover span { /* Applique un style spécifique au <span> à l’intérieur du bouton : */
+  /* Lors du survol du bouton, enlève le fond du span (effet visuel supplémentaire). */
   background: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 768px) {/* Responsive design : sur les écrans plus larges (>= 768px), le bouton est un peu plus grand pour une meilleure lisibilité. */
   #next-button {
     font-size: 24px;
     min-width: 196px;
   }
+}
+
+.option-button.correct {
+  border: 3px solid green;
+}
+
+.option-button.incorrect {
+  border: 3px solid red;
+}
+
+.option-button.disabled {
+  pointer-events: none;
+  opacity: 0.7;
 }
