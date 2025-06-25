@@ -97,10 +97,12 @@ function checkAnswer(clickedButton, correctAnswer) {
 
   replayButton.style.display = 'none';
   nextButton.style.display = 'inline-block';
+  nextButton.disabled = true;
   loadQuestion();
   }
   )
   
+<<<<<<< HEAD
 loadQuestion();
 
 // Permet d'appuyer sur entrée pour lancer le bouton next.
@@ -109,3 +111,7 @@ document.addEventListener('keydown', (e) => {
     nextButton.click();
   } 
 });
+=======
+
+loadQuestion();
+>>>>>>> ced7711b5cb831c1f52a25f17adf7f36110de6df

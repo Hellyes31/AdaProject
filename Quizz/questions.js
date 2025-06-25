@@ -1,7 +1,7 @@
 export const quizz_film = {
   questions: [
     {
-      text: "Capitaine, oh mon capitaine !",
+      text: "Réplique numéro 1 : Capitaine, oh mon capitaine !",
       options: [
         "Pirates des Caraïbes",
         "Le cercle des poètes disparus",
@@ -44,7 +44,7 @@ export const quizz_film = {
     },
 
  {
-      text: "J'ai une arme. Je vais tirer. Si tu ne pars pas, je tirerai.",
+      text: "J'ai une arme. Je vais tirer. Si tu ne pars pas, je tirerai",
       options: [
         "Il était une fois dans l'Ouest",
         "Casino",
