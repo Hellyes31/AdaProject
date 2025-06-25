@@ -8,6 +8,7 @@
 
 </head>
 <body>
+
 	<div id="quiz-container">
    
     <div class="question" id="question-text">
@@ -23,9 +24,14 @@
     <div class="button-container">
       <button id="next-button">Suivant</button>
     </div>
-	<button id="replay-button" style="display: none">Rejouer</button> 
+	<button id="replay-button">Rejouer</button> 
   </div>
-  
+
+  <canvas id="confetti"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+
+  <p id="feedback-message"></p>
   <!-- Importe ici ton fichier JavaScript -->
   	<script type="module" src="game.js" defer></script>
 </body>

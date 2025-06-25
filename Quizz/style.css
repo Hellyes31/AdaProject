@@ -160,7 +160,6 @@ body {
   background: none;
 }
 
-
 #next-button { 
   /* Style Principale du bouton */
   align-items: center;
@@ -186,7 +185,7 @@ body {
   margin-top: 50px;
   font-size: 30px ;
   background-color: rgb(0, 0, 2);
-  cursor: url("Clapperboard.png"), pointer;
+  cursor: url("img/Clapperboard.png"), pointer;
 }
 /* Supprime l’encadrement par défaut du navigateur sur survol ou clic. */
 #next-button:active,
@@ -208,12 +207,6 @@ body {
   background: none;
 }
 
-/* Rajout Elouan */
-#next-button:disabled {
-  opacity: 0.5; /* Permet de grisée le bouton suivant */
-  cursor: not-allowed; /*Permet de signifier visuellement que le bouton est bloqué tant que la réponse n'est pas cliquée. */
-}
-
 @media (min-width: 768px) {/* Responsive design : sur les écrans plus larges (>= 768px), le bouton est un peu plus grand pour une meilleure lisibilité. */
   #next-button {
     font-size: 24px;
@@ -222,16 +215,70 @@ body {
 }
 
 .option-button.correct {
-  border: 10px solid green;
-  border-radius: 30px;
+  border: 5px solid green;
+  border-radius: 25px;
 }
 
 .option-button.incorrect {
-  border: 10px solid red;
-  border-radius: 30px;
+  border: 5px solid red;
+   border-radius: 25px;
 }
 
 .option-button.disabled {
   pointer-events: none;
-  opacity: 0.7;
+  opacity: 10;
+}
+
+p {
+  text-align: center;
+  background-image: linear-gradient(144deg,#000000, #414239 50%,#8a9697);
+  border: 0;
+  border-radius: 8px;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  font-family: Phantomsans, sans-serif;
+  font-size: 20px;
+  justify-content: center;
+  line-height: 1em;
+  max-width: 100%;
+  min-width: 140px;
+  padding: 3px;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  cursor: pointer;
+  margin-top: -10px;
+  font-size: 30px ;
+  background-color: rgb(0, 0, 2);
+}
+
+#replay-button {
+  align-items: center;
+  text-align: center;
+  background-image: linear-gradient(144deg,#000000, #414239 50%,#8a9697);
+  border: 0;
+  border-radius: 8px;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  font-family: Phantomsans, sans-serif;
+  font-size: 20px;
+  justify-content: center;
+  line-height: 1em;
+  max-width: 100%;
+  min-width: 140px;
+  padding: 3px;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  cursor: pointer;
+  margin-top: 50px;
+  font-size: 30px ;
+  background-color: rgb(0, 0, 2);
+  cursor: url("img/Clapperboard.png"), pointer;
 }
