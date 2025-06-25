@@ -101,6 +101,11 @@ function checkAnswer(clickedButton, correctAnswer) {
   }
   )
   
-
-
 loadQuestion();
+
+// Permet d'appuyer sur entrée pour lancer le bouton next.
+document.addEventListener('keydown', (e) => {
+  if (e.key === "Enter" && !nextButton.disabled) {
+    nextButton.click();
+  } 
+});
