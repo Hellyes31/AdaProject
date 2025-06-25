@@ -3,25 +3,23 @@ import {quizz_film } from './questions.js';
 const questionElement = document.getElementById('question-text');
 const optionsContainer = document.getElementById('options-container');
 const nextButton = document.getElementById('next-button'); // Ajoute un bouton dans le fichier HTML
-const replayButton = document.getElementById('replay-button'); // Ajoute un bouton rejouer
 let currentQuestionIndex = 0;
 
 function loadQuestion() {
-  // Récupérer la question actuelle
+
   const currentQuestion = quizz_film.questions[currentQuestionIndex];
-
-  // Injecter le texte de la question
   questionElement.innerText = currentQuestion.text;
-
-  // Vider les anciennes options
   optionsContainer.innerHTML = '';
 
-  // Créer les boutons d’options
   currentQuestion.options.forEach(optionText => {
     const optionBtn = document.createElement('button');
     optionBtn.innerText = optionText;
     optionBtn.classList.add('option-button');
     optionsContainer.appendChild(optionBtn);
+
+    optionBtn.addEventListener('click', () => {
+    checkAnswer(optionBtn, currentQuestion.correct_answer);
+     })
   });
 }
 
@@ -33,22 +31,32 @@ nextButton.addEventListener('click', () => {
   } else {
     questionElement.innerText = "C'est fini, merci d'avoir participé !";
     optionsContainer.innerHTML = '';
-    nextButton.style.display = 'none'; // Afficher le bouton Suivant
-    replayButton.style.display = 'inline-block'; // Afficher le bouton Rejouer
+    nextButton.style.display = 'none';
   }
 });
 
-// Fonction pour réinitialiser le quiz
-replayButton.addEventListener('click', () => {
-  // Réinitialiser l'index 
-  currentQuestionIndex = 0;
+// Charger la première question au chargement de la page
+function normalizeText(text) {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[.,!?]/g, ''); // Supprime la ponctuation
+}
 
-  // Cacher le bouton Rejouer et afficher le bouton Suivant
-    nextButton.style.display = 'inline-block';
-    replayButton.style.display = 'none';
-  
-  // Recharger la première question
-  loadQuestion();
-});
+function checkAnswer(clickedButton, correctAnswer) {
+  const allButtons = document.querySelectorAll('.option-button');
+
+  allButtons.forEach(button => {
+    button.disabled = true; // Désactive tous les boutons
+
+    if (normalizeText(button.innerText) === normalizeText(correctAnswer)) {
+      button.classList.add('correct');
+    
+    } else {
+      button.classList.add('incorrect');
+    }
+  });
+}
 
 loadQuestion();
+
