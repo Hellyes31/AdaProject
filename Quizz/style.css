@@ -208,6 +208,12 @@ body {
   background: none;
 }
 
+/* Rajout Elouan */
+#next-button:disabled {
+  opacity: 0.5; /* Permet de grisée le bouton suivant */
+  cursor: not-allowed; /*Permet de signifier visuellement que le bouton est bloqué tant que la réponse n'est pas cliquée. */
+}
+
 @media (min-width: 768px) {/* Responsive design : sur les écrans plus larges (>= 768px), le bouton est un peu plus grand pour une meilleure lisibilité. */
   #next-button {
     font-size: 24px;
@@ -216,11 +222,13 @@ body {
 }
 
 .option-button.correct {
-  border: 3px solid green;
+  border: 10px solid green;
+  border-radius: 30px;
 }
 
 .option-button.incorrect {
-  border: 3px solid red;
+  border: 10px solid red;
+  border-radius: 30px;
 }
 
 .option-button.disabled {

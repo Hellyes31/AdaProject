@@ -6,7 +6,7 @@ const nextButton = document.getElementById('next-button'); // Ajoute un bouton d
 let currentQuestionIndex = 0;
 
 function loadQuestion() {
-
+  nextButton.disabled = true; // Désactive le bouton suivant au début de chaque question
   const currentQuestion = quizz_film.questions[currentQuestionIndex];
   questionElement.innerText = currentQuestion.text;
   optionsContainer.innerHTML = '';
@@ -31,7 +31,8 @@ nextButton.addEventListener('click', () => {
   } else {
     questionElement.innerText = "C'est fini, merci d'avoir participé !";
     optionsContainer.innerHTML = '';
-    nextButton.style.display = 'none';
+    nextButton.style.display = 'none'; // Désactive le bouton Suivant
+    replayButton.style.display = 'inline-block'; // Afficher le bouton Rejouer
   }
 });
 
@@ -55,6 +56,9 @@ function checkAnswer(clickedButton, correctAnswer) {
     } else {
       button.classList.add('incorrect');
     }
+  // Permet de réactiver le bouton suivant lorsque la réponse est cliquée.
+  nextButton.disabled = false;
+  nextButton.style.display = 'inline-block';
   });
 }
 
