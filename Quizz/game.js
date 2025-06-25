@@ -97,10 +97,10 @@ function checkAnswer(clickedButton, correctAnswer) {
 
   replayButton.style.display = 'none';
   nextButton.style.display = 'inline-block';
+  nextButton.disabled = true;
   loadQuestion();
   }
   )
   
-
 
 loadQuestion();
