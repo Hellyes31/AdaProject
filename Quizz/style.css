@@ -15,7 +15,34 @@ body {
     
 
 }
- 
+/* Trouver un moyen pour qu'au chargement du quizz, le timer soit similaire à après lors du replay */
+#quiz-container {
+  text-align: center;
+}
+
+.timer {
+  font-family: 'Phantomsans, sans-serif';
+  font-size: 1.6rem;
+  color: #f5c518; /* Jaune doré style Oscar / Hollywood */
+  background-color: #1c1c1c; /* Noir cinéma */
+  padding: 12px 24px;
+  border: 2px solid #f5c518;
+  border-radius: 10px;
+  display: inline-block;
+  margin-bottom: 25px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(245, 197, 24, 0.6);
+  margin: 0 auto 25px auto;
+  letter-spacing: 1px;
+  transition: box-shadow 0.3s ease;
+}
+
+.timer span {
+  font-weight: bold;
+  font-size: 2rem;
+  color: #ffffff; /* Le chiffre en blanc brillant */
+}
+
 .question {
   /* Définit la taille de la police */
     font-size : 60px; 
@@ -219,7 +246,6 @@ body {
   cursor: not-allowed !important;
 }
 
-
 /* Rajout Elouan */
 #next-button:disabled {
   opacity: 0.5; /* Permet de grisée le bouton suivant */
@@ -252,7 +278,6 @@ body {
   background-color: rgb(0, 0, 2);
   cursor: url("img/Clapperboard.png"), pointer;
 }
-
 
 @media (min-width: 768px) {/* Responsive design : sur les écrans plus larges (>= 768px), le bouton est un peu plus grand pour une meilleure lisibilité. */
   #next-button {
