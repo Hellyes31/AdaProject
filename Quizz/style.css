@@ -219,7 +219,7 @@ body {
   cursor: not-allowed !important;
 }
 
-<<<<<<< HEAD
+
 /* Rajout Elouan */
 #next-button:disabled {
   opacity: 0.5; /* Permet de grisée le bouton suivant */
@@ -252,9 +252,7 @@ body {
   background-color: rgb(0, 0, 2);
   cursor: url("img/Clapperboard.png"), pointer;
 }
-=======
 
->>>>>>> ced7711b5cb831c1f52a25f17adf7f36110de6df
 
 @media (min-width: 768px) {/* Responsive design : sur les écrans plus larges (>= 768px), le bouton est un peu plus grand pour une meilleure lisibilité. */
   #next-button {
