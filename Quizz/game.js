@@ -2,12 +2,19 @@ import {quizz_film } from './questions.js';
 
 const feedbackMessage = document.getElementById('feedback-message');
 
+const gifScore0 = document.getElementById('end-gif-score-0')
+const gifScore1And2 = document.getElementById('end-gif-score-1-2')
+const gifScore3 = document.getElementById('end-gif-score-3')
+const gifScore4And5 = document.getElementById('end-gif-score-4-5')
+const gifScore6 = document.getElementById('end-gif-score-6')
+
 const canvas = document.querySelector("#confetti");
 
 let timeLeft = 12;
 let timerInterval;
 const timer = document.getElementById('time');
 const timerContainer = document.querySelector('.timer');
+
 const jsConfetti = new JSConfetti();
 const replayButton = document.getElementById('replay-button'); // Ajoute un bouton rejouer dans le fichier HTML
 const questionElement = document.getElementById('question-text');
@@ -19,12 +26,15 @@ let score = 0; // Met le score à 0 au start.
 replayButton.style.display = 'none';
 
 function loadQuestion() {
+
   clearInterval(timerInterval);
   timeLeft = 12; // Le timer est bien setup à 12s
   timer.textContent = timeLeft;
   startTimer(); // Lance le timer lorsqu'on lance la première question
+
   feedbackMessage.innerText = '';
   feedbackMessage.style.display = 'none';
+
   nextButton.disabled = true
   const currentQuestion = quizz_film.questions[currentQuestionIndex];
   questionElement.innerText = currentQuestion.text;
@@ -54,7 +64,7 @@ function startTimer() {
   }, 1000);
 }
 
-// Actions exécutées lors des clicks sur le bouton suivant
+
 nextButton.addEventListener('click', () => {
   currentQuestionIndex++;
 
@@ -71,7 +81,26 @@ nextButton.addEventListener('click', () => {
     replayButton.style.display = 'inline-block'; // Afficher le bouton Rejouer
     feedbackMessage.innerText = '';
     feedbackMessage.style.display = 'none';
+    if (score === 0){
+      gifScore0.src = gifScore0.src;
+      gifScore0.style.display = "inline-block"
+    }
+    else if (score === 6){
+      gifScore6.src = gifScore6.src;
+      gifScore6.style.display = "inline-block"
+    }
+    else if (score === 3){
+      gifScore3.src = gifScore3.src;
+      gifScore3.style.display = "inline-block"
   }
+    else if (score === 1 || score === 2){
+      gifScore1And2.src =gifScore1And2.src
+      gifScore1And2.style.display = "inline-block"
+    }
+    else if (score === 4 || score === 5){
+      gifScore4And5.src = gifScore4And5.src;
+      gifScore4And5.style.display = "inline-block"
+  }}
 });
 
 // Charger la première question au chargement de la page
@@ -82,42 +111,42 @@ function normalizeText(text) {
     .replace(/[.,!?]/g, ''); // Supprime la ponctuation
 }
 
-// Vérifie la réponse entre la réponse cliquée et la bonne réponse
 function checkAnswer(clickedButton, correctAnswer) {
   clearInterval(timerInterval);
-
   const allButtons = document.querySelectorAll('.option-button');
   
   allButtons.forEach(button => {
     button.disabled = true; // Désactive tous les boutons
 
-    // On compare les réponses et on met une bordure rouge ou verte selon la réponse
     if (normalizeText(button.innerText) === normalizeText(correctAnswer)) {
       button.classList.add('correct');
+
     
     } else {
       button.classList.add('incorrect');
     }
   })
-
-  // Vérifie d'abord si clickedButton est bien défini
   if (clickedButton) {
+      // Augmente le score de +1 à chaque bonne réponse, pas d'actions si mauvaise réponse.
     if (normalizeText(clickedButton.innerText) === normalizeText(correctAnswer)) {
       score++;
-      jsConfetti.addConfetti().then(() => jsConfetti.addConfetti());
-
-      feedbackMessage.innerText = "Bravo ! Bonne réponse 🎉";
-    } else {
-      feedbackMessage.innerText = "Dommage, ce n'était pas la bonne réponse.";
     }
+        if (normalizeText(clickedButton.innerText) === normalizeText(correctAnswer)) {
+    jsConfetti.addConfetti()
+    feedbackMessage.innerText = "Bravo ! Bonne réponse 🎉";
+    feedbackMessage.style.display = 'block';
+  } else {
+    feedbackMessage.innerText = "Dommage, ce n'était pas la bonne réponse.";
     feedbackMessage.style.display = 'block';
 
-  } else {
+  }  
+} else {
     // clickedButton est null donc le timer expire et a une incidence pour que ça soit faux 
     feedbackMessage.innerText = "Temps écoulé ! La réponse est considérée comme fausse.";
     feedbackMessage.style.display = 'block';
   }
 
+  // Permet de réactiver le bouton suivant lorsque la réponse est cliquée.
   nextButton.disabled = false;
 }
   // Fonction pour réinitialiser le quizz
@@ -129,13 +158,18 @@ function checkAnswer(clickedButton, correctAnswer) {
   timer.textContent = timeLeft;
   timerContainer.style.display = 'block';
   replayButton.style.display = 'none';
+
+  gifScore0.style.display = "none"
+  gifScore1And2.style.display = "none"
+  gifScore3.style.display = "none"
+  gifScore4And5.style.display = "none"
+  gifScore6.style.display = "none"
   nextButton.style.display = 'inline-block';
   nextButton.disabled = true;
   loadQuestion();
   }
   )
   
-
 
 loadQuestion();
 

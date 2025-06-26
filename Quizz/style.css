@@ -15,18 +15,19 @@ body {
     
 
 }
-/* Trouver un moyen pour qu'au chargement du quizz, le timer soit similaire à après lors du replay */
+
 #quiz-container {
   text-align: center;
 }
 
 .timer {
+  position: absolute;
   font-family: 'Phantomsans, sans-serif';
   font-size: 1.6rem;
   color: #f5c518; /* Jaune doré style Oscar / Hollywood */
   background-color: #1c1c1c; /* Noir cinéma */
   padding: 12px 24px;
-  border: 2px solid #f5c518;
+  /* border: 2px solid #f5c518; */
   border-radius: 10px;
   display: inline-block;
   margin-bottom: 25px;
@@ -35,6 +36,9 @@ body {
   margin: 0 auto 25px auto;
   letter-spacing: 1px;
   transition: box-shadow 0.3s ease;
+  top: 405px;
+  left: 928px;
+  z-index: 9999;
 }
 
 .timer span {
@@ -246,6 +250,7 @@ body {
   cursor: not-allowed !important;
 }
 
+
 /* Rajout Elouan */
 #next-button:disabled {
   opacity: 0.5; /* Permet de grisée le bouton suivant */
@@ -278,6 +283,7 @@ body {
   background-color: rgb(0, 0, 2);
   cursor: url("img/Clapperboard.png"), pointer;
 }
+
 
 @media (min-width: 768px) {/* Responsive design : sur les écrans plus larges (>= 768px), le bouton est un peu plus grand pour une meilleure lisibilité. */
   #next-button {
@@ -328,3 +334,42 @@ p {
 }
 
 
+#end-gif-score-0 { 
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    top: 300px;
+    left: 720px;
+}
+
+#end-gif-score-3 { 
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    top: 300px;
+    left: 800px;
+}
+
+#end-gif-score-6 { 
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    top: 300px;
+    left: 720px;
+}
+
+#end-gif-score-4-5 { 
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    top: 200px;
+    left: 720px;
+}
+
+#end-gif-score-1-2 { 
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    top: 265px;
+    left: 790px;
+}
