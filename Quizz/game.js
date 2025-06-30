@@ -14,6 +14,12 @@ let timeLeft = 12;
 let timerInterval;
 const timer = document.getElementById('time');
 const timerContainer = document.querySelector('.timer');
+const classement = [];
+
+// Margot - Boîte de dialogue pour le pseudo
+const pseudoContainer = document.getElementById('pseudo-container');
+const pseudoInput = document.getElementById('pseudo-input');
+const startButton = document.getElementById('start-button');
 
 const jsConfetti = new JSConfetti();
 const replayButton = document.getElementById('replay-button'); // Ajoute un bouton rejouer dans le fichier HTML
@@ -22,8 +28,39 @@ const optionsContainer = document.getElementById('options-container');
 const nextButton = document.getElementById('next-button'); // Ajoute un bouton dans le fichier HTML
 let currentQuestionIndex = 0;
 let score = 0; // Met le score à 0 au start.
+let pseudo = '';
 
+// Au début : afficher le pseudo, cacher le reste
+pseudoContainer.style.display = 'block';
+timerContainer.style.display = 'none';
+questionElement.style.display = 'none';
+optionsContainer.style.display = 'none';
+nextButton.style.display = 'none';
 replayButton.style.display = 'none';
+feedbackMessage.style.display = 'none';
+
+// évènement du bouton "Commencer"
+startButton.addEventListener('click', () => {
+  pseudo = pseudoInput.value.trim();
+
+  if (pseudo === '') {
+    alert('Merci de rentrer un pseudo pour commencer !');
+    return;
+  }
+
+  //  Afficher le quiz et cacher la boîte pseudo, gérer l'affichage 
+  pseudoContainer.style.display = 'none';
+  questionElement.style.display = 'block';
+  optionsContainer.style.display = 'grid';
+  nextButton.style.display = 'inline-block';
+  replayButton.style.display = 'none';
+  timerContainer.style.display = 'block';
+
+  currentQuestionIndex = 0;
+  score = 0;
+
+  loadQuestion();
+});
 
 function loadQuestion() {
 
@@ -74,8 +111,19 @@ nextButton.addEventListener('click', () => {
     clearInterval(timerInterval);
 
     timerContainer.style.display = 'none';
+    // CLASSEMENT pour enregistrer le score du joueur
+    classement.push({ pseudo: pseudo, score: score });
+
+    // CLASSEMENT Ranger le score du plus p'tit au plus GRAND
+    classement.sort((a, b) => b.score - a.score);
+        // Générer le texte du classement
+        let classementTexte = '🏆 Classement des joueurs :\n';
+    classement.forEach((joueur, index) => {
+      classementTexte += `${index + 1}. ${joueur.pseudo} - ${joueur.score} / ${quizz_film.questions.length}\n`});
 // Affiche le message de fin avec le score.
-    questionElement.innerText = `C'est fini, merci d'avoir participé ! Ton score total sur ce quizz est de : ${score} / ${quizz_film.questions.length}.`;
+    questionElement.innerText = `C'est fini, merci ${pseudo} d'avoir participé ! 
+    Ton score : ${score} / ${quizz_film.questions.length} \n\n
+    ${classementTexte}`;;
     optionsContainer.innerHTML = '';
     nextButton.style.display = 'none';
     replayButton.style.display = 'inline-block'; // Afficher le bouton Rejouer
@@ -159,13 +207,23 @@ function checkAnswer(clickedButton, correctAnswer) {
   timerContainer.style.display = 'block';
   replayButton.style.display = 'none';
 
+  // Gestion de l'affichage pour cacher le quiz
+  timerContainer.style.display = 'none';
+  questionElement.style.display = 'none';
+  optionsContainer.style.display = 'none';
+  nextButton.style.display = 'none';
+  feedbackMessage.style.display = 'none';
+
+  // Montrer la boîte pseudo
+  pseudoContainer.style.display = 'block';
+  pseudoInput.value = '';
+
   gifScore0.style.display = "none"
   gifScore1And2.style.display = "none"
   gifScore3.style.display = "none"
   gifScore4And5.style.display = "none"
   gifScore6.style.display = "none"
-  nextButton.style.display = 'inline-block';
-  nextButton.disabled = true;
+ 
   loadQuestion();
   }
   )
