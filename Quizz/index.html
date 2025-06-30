@@ -9,12 +9,20 @@
 </head>
 <body>
   
+
+  <div id="pseudo-container"> 
+    <label for="pseudo-input"></label> 
+    <input type="text" id="pseudo-input" placeholder="Ton pseudo">
+    <button id="start-button">Commencer</button>
+  </div>
+  
 	<div id="quiz-container">
-    <div class="timer"><span id="time"></span>s</div>
+    
     <div class="question" id="question-text">
       <!-- La question sera injectée ici par JavaScript -->
     </div>
-
+    <p id="feedback-message"></p>
+    <div class="timer"><span id="time"></span>s</div>
     
     <div class="options" id="options-container">
       <!-- Les options seront injectées ici par JavaScript -->
@@ -41,7 +49,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
 
-  <p id="feedback-message"></p>
+  
   <!-- Importe ici ton fichier JavaScript -->
   	<script type="module" src="game.js" defer></script>
 </body>
