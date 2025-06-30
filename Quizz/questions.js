@@ -1,7 +1,7 @@
 export const quizz_film = {
   questions: [
     {
-      text: "Réplique numéro 1 : Capitaine, oh mon capitaine !",
+      text: '"Capitaine, oh mon capitaine !"',
       options: [
         "Pirates des Caraïbes",
         "Le cercle des poètes disparus",
@@ -11,7 +11,7 @@ export const quizz_film = {
       correct_answer: "Le cercle des poètes disparus"
     },
     {
-      text: "Ils peuvent prendre nos vies, mais ils ne prendront jamais notre liberté !",
+      text: '"Ils peuvent prendre nos vies, mais ils ne prendront jamais notre liberté !"',
       options: [
         "Troie",
         "300",
@@ -22,7 +22,7 @@ export const quizz_film = {
     },
 
  {
-      text: "La cuillère n'existe pas",
+      text: `"La cuillère n'existe pas"` ,
       options: [
         "Matrix",
         "Blade runner",
@@ -33,7 +33,7 @@ export const quizz_film = {
     },
 
     {
-      text: "Tu te souviens de cette fois, dans ta tête, où tu t’es dit : C’est une mauvaise idée ? Tu aurais dû écouter.",
+      text: '"Tu te souviens de cette fois, dans ta tête, où tu t’es dit : C’est une mauvaise idée ? Tu aurais dû écouter."',
       options: [
         "Fight Club",
         "Joker",
@@ -44,7 +44,7 @@ export const quizz_film = {
     },
 
  {
-      text: "J'ai une arme. Je vais tirer. Si tu ne pars pas, je tirerai",
+      text: `"J'ai une arme. Je vais tirer. Si tu ne pars pas, je tirerai"`,
       options: [
         "Il était une fois dans l'Ouest",
         "Casino",
@@ -55,7 +55,7 @@ export const quizz_film = {
     },
 
  {
-      text: "Hey Mickey ! Tu veux aller au pipiroom ?",
+      text: '"Hey Mickey ! Tu veux aller au pipiroom ?"',
       options: [
         "Snatch",
         "Les Goonies",
