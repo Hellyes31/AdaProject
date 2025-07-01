@@ -255,4 +255,3 @@ document.addEventListener('keydown', (e) => {
 
 
 loadQuestion();
-
