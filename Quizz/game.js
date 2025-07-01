@@ -4,9 +4,11 @@ const feedbackMessage = document.getElementById('feedback-message');
 
 const gifScore0 = document.getElementById('end-gif-score-0')
 const gifScore1And2 = document.getElementById('end-gif-score-1-2')
-const gifScore3 = document.getElementById('end-gif-score-3')
-const gifScore4And5 = document.getElementById('end-gif-score-4-5')
-const gifScore6 = document.getElementById('end-gif-score-6')
+const gifScore3And4 = document.getElementById('end-gif-score-3-4')
+const gifScore5 = document.getElementById('end-gif-score-5')
+const gifScore6And7 = document.getElementById('end-gif-score-6-7')
+const gifScore8And9 = document.getElementById('end-gif-score-8-9')
+const gifScore10 = document.getElementById('end-gif-score-10')
 
 const canvas = document.querySelector("#confetti");
 
@@ -121,9 +123,11 @@ nextButton.addEventListener('click', () => {
     classement.forEach((joueur, index) => {
       classementTexte += `${index + 1}. ${joueur.pseudo} - ${joueur.score} / ${quizz_film.questions.length}\n`});
 // Affiche le message de fin avec le score.
+
     questionElement.innerText = `C'est fini, merci ${pseudo} d'avoir participé ! 
     Ton score : ${score} / ${quizz_film.questions.length} \n\n
     ${classementTexte}`;;
+
     optionsContainer.innerHTML = '';
     nextButton.style.display = 'none';
     replayButton.style.display = 'inline-block'; // Afficher le bouton Rejouer
@@ -133,22 +137,31 @@ nextButton.addEventListener('click', () => {
       gifScore0.src = gifScore0.src;
       gifScore0.style.display = "inline-block"
     }
-    else if (score === 6){
-      gifScore6.src = gifScore6.src;
-      gifScore6.style.display = "inline-block"
+    else if (score === 10){
+      gifScore10.src = gifScore10.src;
+      gifScore10.style.display = "inline-block"
     }
-    else if (score === 3){
-      gifScore3.src = gifScore3.src;
-      gifScore3.style.display = "inline-block"
+    else if (score === 8 || score === 9){
+      gifScore8And9.src = gifScore8And9.src;
+      gifScore8And9.style.display = "inline-block"
+  }
+    else if (score === 6 || score === 7){
+      gifScore6And7.src = gifScore6And7.src;
+      gifScore6And7.style.display = "inline-block"
+  }
+    else if (score === 5){
+      gifScore5.src = gifScore5.src;
+      gifScore5.style.display = "inline-block"
+  }
+      else if (score === 3 || score === 4){
+      gifScore3And4.src = gifScore3And4.src;
+      gifScore3And4.style.display = "inline-block"
   }
     else if (score === 1 || score === 2){
       gifScore1And2.src =gifScore1And2.src
       gifScore1And2.style.display = "inline-block"
     }
-    else if (score === 4 || score === 5){
-      gifScore4And5.src = gifScore4And5.src;
-      gifScore4And5.style.display = "inline-block"
-  }}
+    }
 });
 
 // Charger la première question au chargement de la page
@@ -220,9 +233,11 @@ function checkAnswer(clickedButton, correctAnswer) {
 
   gifScore0.style.display = "none"
   gifScore1And2.style.display = "none"
-  gifScore3.style.display = "none"
-  gifScore4And5.style.display = "none"
-  gifScore6.style.display = "none"
+  gifScore3And4.style.display = "none"
+  gifScore5.style.display = "none"
+  gifScore6And7.style.display = "none"
+  gifScore8And9.style.display = "none"
+  gifScore10.style.display = "none"
  
   loadQuestion();
   }
