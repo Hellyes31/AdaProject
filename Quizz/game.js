@@ -14,9 +14,8 @@ const canvas = document.querySelector("#confetti");
 
 let timeLeft = 12;
 let timerInterval;
-const timer = document.getElementById("time");
-const timerContainer = document.querySelector(".timer");
-const classement = [];
+const timer = document.getElementById('time');
+const timerContainer = document.querySelector('.timer');
 
 // Margot - Boîte de dialogue pour le pseudo
 const pseudoContainer = document.getElementById("pseudo-container");
@@ -30,7 +29,8 @@ const optionsContainer = document.getElementById("options-container");
 const nextButton = document.getElementById("next-button"); // Ajoute un bouton dans le fichier HTML
 let currentQuestionIndex = 0;
 let score = 0; // Met le score à 0 au start.
-let pseudo = "";
+let quizOn = false; // Une variable pour permettre de savoir quand le quiz est démarré ou pas pour éviter les conflits avec certaines features
+let pseudo = '';
 
 // Au début : afficher le pseudo, cacher le reste
 pseudoContainer.style.display = "block";
@@ -50,14 +50,14 @@ startButton.addEventListener("click", () => {
     return;
   }
 
-  //  Afficher le quiz et cacher la boîte pseudo, gérer l'affichage
-  pseudoContainer.style.display = "none";
-  questionElement.style.display = "block";
-  optionsContainer.style.display = "grid";
-  nextButton.style.display = "inline-block";
-  replayButton.style.display = "none";
-  timerContainer.style.display = "block";
-
+  //  Afficher le quiz et cacher la boîte pseudo, gérer l'affichage 
+  pseudoContainer.style.display = 'none';
+  questionElement.style.display = 'block';
+  optionsContainer.style.display = 'grid';
+  nextButton.style.display = 'inline-block';
+  replayButton.style.display = 'none';
+  timerContainer.style.display = 'block';
+  quizOn = true;
   currentQuestionIndex = 0;
   score = 0;
 
@@ -93,14 +93,13 @@ function loadQuestion() {
 // Lance une fonction timer tout le long du quizz
 function startTimer() {
   timerInterval = setInterval(() => {
-    timeLeft--;
-    timer.textContent = timeLeft;
-    if (timeLeft <= 0) {
-      clearInterval(timerInterval);
-      checkAnswer(
-        null,
-        quizz_film.questions[currentQuestionIndex].correct_answer
-      ); // Si pas de réponse à la fin du temps imparti = faux
+  timeLeft--;
+  timer.textContent = timeLeft;
+  if (timeLeft <= 0) {
+    clearInterval(timerInterval);
+    if (quizOn) {
+            checkAnswer(null, quizz_film.questions[currentQuestionIndex].correct_answer); // Si pas de réponse à la fin du temps imparti = faux
+          }
     }
   }, 1000);
 }
@@ -113,9 +112,16 @@ nextButton.addEventListener("click", () => {
   } else {
     clearInterval(timerInterval);
 
-    timerContainer.style.display = "none";
+    timerContainer.style.display = 'none';
+
+    // Récupére l'ancien classement ou créer un tableau vide
+    let classement = JSON.parse(localStorage.getItem('classement')) || [];
+
     // CLASSEMENT pour enregistrer le score du joueur
     classement.push({ pseudo: pseudo, score: score });
+
+    // Sauvegarde le classement mis à jour dans le localStorage
+    localStorage.setItem('classement', JSON.stringify(classement));
 
     // CLASSEMENT Ranger le score du plus p'tit au plus GRAND
     classement.sort((a, b) => b.score - a.score);
@@ -129,8 +135,7 @@ nextButton.addEventListener("click", () => {
     // Affiche le message de fin avec le score.
 
     questionElement.innerText = `C'est fini, merci ${pseudo} d'avoir participé ! 
-    Ton score : ${score} / ${quizz_film.questions.length} \n\n
-    ${classementTexte}`;
+    Ton score : ${score} / ${quizz_film.questions.length}`;;
 
     optionsContainer.innerHTML = "";
     nextButton.style.display = "none";
@@ -210,9 +215,43 @@ function checkAnswer(clickedButton, correctAnswer) {
   // Permet de réactiver le bouton suivant lorsque la réponse est cliquée.
   nextButton.disabled = false;
 }
-// Fonction pour réinitialiser le quizz
-replayButton.addEventListener("click", () => {
-  // Réinitialiser l'index
+
+ function afficherClassement() {
+  const classement = JSON.parse(localStorage.getItem('classement')) || [];
+
+  const classementContainer = document.getElementById('classement-container');
+  const classementListe = document.getElementById('classement-liste');
+
+  // Vide l'affichage précédent
+  classementListe.innerHTML = '';
+
+  if (classement.length === 0) {
+    classementContainer.style.display = 'block';
+    classementListe.innerHTML = '<li>Aucun score enregistré pour l’instant !</li>';
+    return;
+  }
+
+  // Trie du meilleur au moins bon
+  classement.sort((a, b) => b.score - a.score);
+
+  classement.forEach((joueur, index) => {
+    const item = document.createElement('li');
+    item.textContent = `${index + 1}. ${joueur.pseudo} - ${joueur.score} / ${quizz_film.questions.length}`;
+    classementListe.appendChild(item);
+  });
+
+  classementContainer.style.display = 'block';
+}
+
+// Permet de reset le classement si l'on clique sur le bouton dédié
+document.getElementById('reset-classement').addEventListener('click', () => {
+  localStorage.removeItem('classement');
+  alert('Classement réinitialisé !');
+});
+
+  // Fonction pour réinitialiser le quizz
+  replayButton.addEventListener('click', () => {
+  // Réinitialiser l'index 
   currentQuestionIndex = 0;
   score = 0; //Réinitialise le score au redémarrage.
   timeLeft = 12;
@@ -231,24 +270,37 @@ replayButton.addEventListener("click", () => {
   pseudoContainer.style.display = "block";
   pseudoInput.value = "";
 
-  gifScore0.style.display = "none";
-  gifScore1And2.style.display = "none";
-  gifScore3And4.style.display = "none";
-  gifScore5.style.display = "none";
-  gifScore6And7.style.display = "none";
-  gifScore8And9.style.display = "none";
-  gifScore10.style.display = "none";
+  gifScore0.style.display = "none"
+  gifScore1And2.style.display = "none"
+  gifScore3And4.style.display = "none"
+  gifScore5.style.display = "none"
+  gifScore6And7.style.display = "none"
+  gifScore8And9.style.display = "none"
+  gifScore10.style.display = "none"
+  }
+  )
+  
 
-  loadQuestion();
-});
-
-loadQuestion();
-
-// Permet d'appuyer sur entrée pour lancer le bouton next.
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Enter" && !nextButton.disabled) {
-    nextButton.click();
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    // Si la boîte de pseudo est visible, on veut déclencher le bouton "Commencer"
+    if (pseudoContainer.style.display === 'block') {
+      startButton.click();
+    }
+    // Si le bouton "Rejouer" est visible, on déclenche "Rejouer"
+    else if (replayButton.style.display === 'inline-block') {
+      replayButton.click();
+    }
+    // Si on est dans le quiz et que le bouton "Suivant" est activé
+    else if (
+      questionElement.style.display === 'block' &&
+      nextButton.style.display !== 'none' &&
+      !nextButton.disabled
+    ) {
+      nextButton.click();
+    }
   }
 });
 
-loadQuestion();
+document.getElementById('show-classement').addEventListener('click', afficherClassement);
+
