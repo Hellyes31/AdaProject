@@ -1,0 +1,165 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url("img/Background.jpg");
+  background-size: cover; 
+  background-position: center;
+  height: 100vh;
+  width: 100vw;
+  cursor: url("img/PopCorn.png"), auto;
+  overflow-x: hidden;
+  font-family: sans-serif;
+}
+
+#quiz-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2vh 2vw;
+}
+
+.timer {
+  font-family: 'Phantomsans', sans-serif;
+  font-size: 1.6rem;
+  color: #f5c518;
+  background-color: #1c1c1c;
+  padding: 1.2vh 2vw;
+  border-radius: 10px;
+  margin-bottom: 2vh;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(245, 197, 24, 0.6);
+}
+
+.timer span {
+  font-weight: bold;
+  font-size: 2rem;
+  color: #ffffff;
+}
+
+.question {
+  font-size: 3vw;
+  border-radius: 60px;
+  text-align: center;
+  color: #FFCC00;
+  background-image: linear-gradient(144deg,#000000, #414239 50%,#8a9697);
+  padding: 1vh 2vw;
+  margin: 2vh 0;
+  max-width: 90vw;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2vh;
+  width: 90vw;
+  max-width: 900px;
+  margin: 5vh auto 0;
+}
+
+.options > button {
+  font-size: 2rem;
+  padding: 1.5vh 2vw;
+  width: 100%;
+  background-image: linear-gradient(144deg,#000000, #414239 50%,#8a9697);
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  color: #ffffff;
+  font-family: 'Phantomsans', sans-serif;
+  font-weight: 500;
+  letter-spacing: .8px;
+  cursor: url("img/Clapperboard.png"), pointer;
+  transition: filter 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.options > button:after {
+  background-clip: padding-box;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  bottom: -4px;
+  content: "";
+  left: 0;
+  right: 0;
+  top: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.options > button:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.options > button:active {
+  border-width: 4px 0 0;
+  background: none;
+}
+
+#next-button,
+#replay-button,
+p {
+  margin-top: 5vh;
+  padding: 1.5vh 3vw;
+  font-size: 1.7vw;
+  border-radius: 8px;
+  background-image: linear-gradient(144deg,#000000, #414239 50%,#8a9697);
+  background-color: rgb(0, 0, 2);
+  color: #FFFFFF;
+  font-family: 'Phantomsans', sans-serif;
+  cursor: url("img/Clapperboard.png"), pointer;
+  box-shadow: rgba(197, 197, 73, 0.541) 0 15px 30px -5px;
+}
+
+#next-button:disabled {
+  opacity: 0.5;
+  background-color: #555555;
+  background-image: none;
+  box-shadow: none;
+  color: #ccc;
+  filter: grayscale(100%);
+  cursor: not-allowed;
+}
+
+.option-button.correct {
+  border: 5px solid green;
+  border-radius: 25px;
+}
+
+.option-button.incorrect {
+  border: 5px solid red;
+  border-radius: 25px;
+}
+
+.option-button.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+[id^="end-gif-score-"] {
+  display: block;
+  max-width: 60vw;
+  height: auto;
+  margin: 4vh auto;
+  position: relative;
+}
+
+
+@media (max-width: 1366px) {
+  .question {
+    font-size: 3vw;
+  }
+  .timer {
+    font-size: 1.2rem;
+  }
+  .options > button {
+    font-size: 1rem;
+  }
+  #next-button,
+  #replay-button,
+  p {
+    font-size: 1.6vw;
+  }
+}
