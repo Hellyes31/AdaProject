@@ -275,3 +275,13 @@ p {
   width: auto;
 }
 
+#Welcome{
+  font-size: 3vw;
+  border-radius: 60px;
+  text-align: center;
+  color: #ffcc00;
+  background-image: linear-gradient(144deg, #000000, #414239 50%, #8a9697);
+  padding: 1vh 2vw;
+  margin: 8vh 0;
+  max-width: 90vw;
+}

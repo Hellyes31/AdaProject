@@ -1,5 +1,5 @@
 import { quizz_film } from "./questions.js";
-
+const Welcome = document.getElementById("Welcome")
 const feedbackMessage = document.getElementById("feedback-message");
 
 const gifScore0 = document.getElementById("end-gif-score-0");
@@ -51,6 +51,7 @@ startButton.addEventListener("click", () => {
   }
 
   //  Afficher le quiz et cacher la boîte pseudo, gérer l'affichage 
+  Welcome.style.display = "none";
   pseudoContainer.style.display = 'none';
   questionElement.style.display = 'block';
   optionsContainer.style.display = 'grid';
@@ -72,7 +73,7 @@ function loadQuestion() {
 
   feedbackMessage.innerText = "";
   feedbackMessage.style.display = "none";
-
+  Welcome.style.display = "none";
   nextButton.disabled = true;
   const currentQuestion = quizz_film.questions[currentQuestionIndex];
   questionElement.innerText = currentQuestion.text;
@@ -136,7 +137,7 @@ nextButton.addEventListener("click", () => {
 
     questionElement.innerText = `C'est fini, merci ${pseudo} d'avoir participé ! 
     Ton score : ${score} / ${quizz_film.questions.length}`;;
-
+    Welcome.style.display = "none";
     optionsContainer.innerHTML = "";
     nextButton.style.display = "none";
     replayButton.style.display = "inline-block"; // Afficher le bouton Rejouer
@@ -216,7 +217,7 @@ function checkAnswer(clickedButton, correctAnswer) {
   nextButton.disabled = false;
 }
 
-function afficherClassement() {
+function ShowClassement() {
   const classement = JSON.parse(localStorage.getItem('classement')) || [];
 
   const classementContainer = document.getElementById('classement-container');
@@ -270,6 +271,7 @@ document.getElementById('reset-classement').addEventListener('click', () => {
   feedbackMessage.style.display = "none";
 
   // Montrer la boîte pseudo
+  Welcome.style.display = "block";
   pseudoContainer.style.display = "block";
   pseudoInput.value = "";
 
@@ -305,5 +307,5 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-document.getElementById('show-classement').addEventListener('click', afficherClassement);
+document.getElementById('show-classement').addEventListener('click', ShowClassement);
 
