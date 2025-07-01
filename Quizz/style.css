@@ -202,3 +202,75 @@ p {
     font-size: 1.6vw;
   }
 }
+
+/* Conteneur global centré */
+#pseudo-container {
+  display: flex;
+  position: fixed; /* Reste centré même en défilant */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 999;
+}
+
+/* Label du pseudo */
+#pseudo-label {
+  color: red;
+  text-align: center;
+  font-size: 2.5vw;
+  text-shadow: 2px 2px 5px black;
+  font-family: 'OCR A Std', monospace;
+  margin-bottom: 20px;
+}
+
+/* Champ pseudo */
+#pseudo-input {
+  font-size: 2vw;
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: 3px solid red;
+  background-color: black;
+  color: red;
+  box-shadow: 0 0 15px red;
+  text-align: center;
+  font-family: 'OCR A Std', monospace;
+  width: 50vw;
+  max-width: 400px;
+  min-width: 200px;
+}
+
+/* Bouton commencer */
+#start-button {
+  background-color: rgb(192, 28, 28);
+  border: none;
+  border-radius: 50px;
+  padding: 10px 30px;
+  color: white;
+  font-size: 2vw;
+  font-family: 'OCR A Std', monospace;
+  cursor: url("img/Clapperboard.png"), pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+  transition: transform 0.2s ease;
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 25vh
+}
+
+/* Effet au survol */
+#start-button:hover {
+  transform: scale(1.05);
+  background-color: rgb(255, 50, 50);
+}
+
+/* Image dans le bouton */
+#ImageBouton {
+  height: 5vh;
+  width: auto;
+}
+
