@@ -217,7 +217,7 @@ function checkAnswer(clickedButton, correctAnswer) {
   nextButton.disabled = false;
 }
 
-function showClassement() {
+
 function ShowClassement() {
   const classement = JSON.parse(localStorage.getItem('classement')) || [];
 
