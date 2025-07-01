@@ -216,7 +216,7 @@ function checkAnswer(clickedButton, correctAnswer) {
   nextButton.disabled = false;
 }
 
-function afficherClassement() {
+function showClassement() {
   const classement = JSON.parse(localStorage.getItem('classement')) || [];
 
   const classementContainer = document.getElementById('classement-container');
@@ -305,5 +305,5 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-document.getElementById('show-classement').addEventListener('click', afficherClassement);
+document.getElementById('show-classement').addEventListener('click', showClassement);
 
