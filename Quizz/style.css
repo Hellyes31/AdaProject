@@ -22,12 +22,6 @@ body {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-#classement.hidden {
-  transform: translateY(100%);
-  opacity: 0;
-  pointer-events: none;
-}
-
 #classement-container {
   font-family: 'Phantomsans', sans-serif;
   color: white;
@@ -36,20 +30,27 @@ body {
 }
 
 #classement-buttons {
-  position: absolute;
+  position: fixed; /* reste visible même en défilement ou plein écran */
+  top: 2vh;
+  right: 2vw;
   display: flex;
   gap: 10px;
-  margin-top: -5vh;
-  height: 5vh;
-  margin-left: 184vh;
+  height: auto;
+  z-index: 1000; /* assure qu'ils restent au-dessus */
 }
 
-#show-classement, #reset-classement {
+#show-classement,
+#reset-classement {
   font-size: 1.5vh;
+  padding: 1vh 2vw;
   background-image: linear-gradient(144deg,#000000, #414239 50%,#8a9697);
   color: white;
   cursor: url("img/Clapperboard.png"), pointer;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
 }
+
 
 #quiz-container {
   display: flex;

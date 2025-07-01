@@ -216,29 +216,32 @@ function checkAnswer(clickedButton, correctAnswer) {
   nextButton.disabled = false;
 }
 
- function afficherClassement() {
+function afficherClassement() {
   const classement = JSON.parse(localStorage.getItem('classement')) || [];
 
   const classementContainer = document.getElementById('classement-container');
   const classementListe = document.getElementById('classement-liste');
 
-  // Vide l'affichage précédent
-  classementListe.innerHTML = '';
-
-  if (classement.length === 0) {
-    classementContainer.style.display = 'block';
-    classementListe.innerHTML = '<li>Aucun score enregistré pour l’instant !</li>';
+  // Si le classement est déjà visible, on le cache
+  if (classementContainer.style.display === 'block') {
+    classementContainer.style.display = 'none';
     return;
   }
 
-  // Trie du meilleur au moins bon
-  classement.sort((a, b) => b.score - a.score);
+  // Sinon on l'affiche
+  classementListe.innerHTML = '';
 
-  classement.forEach((joueur, index) => {
-    const item = document.createElement('li');
-    item.textContent = `${index + 1}. ${joueur.pseudo} - ${joueur.score} / ${quizz_film.questions.length}`;
-    classementListe.appendChild(item);
-  });
+  if (classement.length === 0) {
+    classementListe.innerHTML = '<li>Aucun score enregistré pour l’instant !</li>';
+  } else {
+    classement.sort((a, b) => b.score - a.score);
+
+    classement.forEach((joueur, index) => {
+      const item = document.createElement('li');
+      item.textContent = `${index + 1}. ${joueur.pseudo} - ${joueur.score} / ${quizz_film.questions.length}`;
+      classementListe.appendChild(item);
+    });
+  }
 
   classementContainer.style.display = 'block';
 }
