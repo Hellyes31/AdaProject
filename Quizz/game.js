@@ -115,7 +115,7 @@ nextButton.addEventListener("click", () => {
 
     timerContainer.style.display = 'none';
 
-    // Récupére l'ancien classement ou créer un tableau vide
+    // Récupére l'ancien classement ou créer un tableau vide 
     let classement = JSON.parse(localStorage.getItem('classement')) || [];
 
     // CLASSEMENT pour enregistrer le score du joueur
@@ -135,8 +135,7 @@ nextButton.addEventListener("click", () => {
     });
     // Affiche le message de fin avec le score.
 
-    questionElement.innerText = `C'est fini, merci ${pseudo} d'avoir participé ! 
-    Ton score : ${score} / ${quizz_film.questions.length}`;;
+    questionElement.innerText = `C'est fini, merci ${pseudo} d'avoir participé ! Ton score : ${score} / ${quizz_film.questions.length}`;
     Welcome.style.display = "none";
     optionsContainer.innerHTML = "";
     nextButton.style.display = "none";
