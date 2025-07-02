@@ -1,21 +1,21 @@
 import { quizz_film } from "./questions.js";
 
 // --- Sélection des éléments DOM ---
-const welcome = document.getElementById("welcome")
-const feedbackMessage = document.getElementById("feedback-message");
-const timer = document.getElementById("time");
-const timerContainer = document.querySelector(".timer");
-const pseudoContainer = document.getElementById("pseudo-container");
-const pseudoInput = document.getElementById("pseudo-input");
-const startButton = document.getElementById("start-button");
-const replayButton = document.getElementById("replay-button");
-const questionElement = document.getElementById("question-text");
-const optionsContainer = document.getElementById("options-container");
-const nextButton = document.getElementById("next-button");
-const jsConfetti = new JSConfetti();
+const Welcome = document.getElementById("welcome")
+const FeedbackMessage = document.getElementById("feedback-message");
+const Timer = document.getElementById("time");
+const TimerContainer = document.querySelector(".timer");
+const PseudoContainer = document.getElementById("pseudo-container");
+const PseudoInput = document.getElementById("pseudo-input");
+const StartButton = document.getElementById("start-button");
+const ReplayButton = document.getElementById("replay-button");
+const QuestionElement = document.getElementById("question-text");
+const OptionsContainer = document.getElementById("options-container");
+const NextButton = document.getElementById("next-button");
+const JsConfetti = new JSConfetti();
 
 // --- Sélection des éléments GIF ---
-const gifScores = {
+const GifScores = {
   0: document.getElementById("end-gif-score-0"),
   1: document.getElementById("end-gif-score-1-2"),
   2: document.getElementById("end-gif-score-1-2"),
@@ -43,14 +43,14 @@ function setDisplay(elements, display) {
 }
 
 function resetGifScores() {
-  Object.values(gifScores).forEach(gif => gif.style.display = "none");
+  Object.values(GifScores).forEach(gif => gif.style.display = "none");
 }
 
 function showGifScore(score) {
   resetGifScores();
-  if (gifScores[score]) {
-    gifScores[score].src = gifScores[score].src;
-    gifScores[score].style.display = "inline-block";
+  if (GifScores[score]) {
+    GifScores[score].src = GifScores[score].src;
+    GifScores[score].style.display = "inline-block";
   }
 }
 
@@ -62,16 +62,16 @@ function resetQuiz() {
   currentQuestionIndex = 0;
   score = 0;
   timeLeft = 12;
-  timer.textContent = timeLeft;
+  Timer.textContent = timeLeft;
   quizOn = false;
-  pseudoInput.value = "";
+  PseudoInput.value = "";
 
   setDisplay(
-    [questionElement, optionsContainer, nextButton, timerContainer, feedbackMessage],
+    [QuestionElement, OptionsContainer, NextButton, TimerContainer, FeedbackMessage],
     "none"
   );
-  setDisplay([pseudoContainer, welcome], "block");
-  replayButton.style.display = "none";
+  setDisplay([PseudoContainer, Welcome], "block");
+  ReplayButton.style.display = "none";
   resetGifScores();
 }
 
@@ -79,25 +79,25 @@ function resetQuiz() {
 function loadQuestion() {
   clearInterval(timerInterval);
   timeLeft = 12;
-  timer.textContent = timeLeft;
+  Timer.textContent = timeLeft;
   startTimer();
 
-  setDisplay([feedbackMessage, welcome], "none");
-  feedbackMessage.innerText = "";
-  nextButton.disabled = true;
+  setDisplay([FeedbackMessage, Welcome], "none");
+  FeedbackMessage.innerText = "";
+  NextButton.disabled = true;
 
-  const currentQuestion = quizz_film.questions[currentQuestionIndex];
-  questionElement.innerText = currentQuestion.text;
-  optionsContainer.innerHTML = "";
+  const CurrentQuestion = quizz_film.questions[currentQuestionIndex];
+  QuestionElement.innerText = CurrentQuestion.text;
+  OptionsContainer.innerHTML = "";
 
-  currentQuestion.options.forEach((optionText) => {
-    const optionBtn = document.createElement("button");
-    optionBtn.innerText = optionText;
-    optionBtn.classList.add("option-button");
-    optionsContainer.appendChild(optionBtn);
+  CurrentQuestion.options.forEach((optionText) => {
+    const OptionBtn = document.createElement("button");
+    OptionBtn.innerText = optionText;
+    OptionBtn.classList.add("option-button");
+    OptionsContainer.appendChild(OptionBtn);
 
-    optionBtn.addEventListener("click", () =>
-      checkAnswer(optionBtn, currentQuestion.correct_answer)
+    OptionBtn.addEventListener("click", () =>
+      checkAnswer(OptionBtn, CurrentQuestion.correct_answer)
     );
   });
 }
@@ -105,7 +105,7 @@ function loadQuestion() {
 function startTimer() {
   timerInterval = setInterval(() => {
     timeLeft--;
-    timer.textContent = timeLeft;
+    Timer.textContent = timeLeft;
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
       if (quizOn) {
@@ -117,63 +117,63 @@ function startTimer() {
 
 function checkAnswer(clickedButton, correctAnswer) {
   clearInterval(timerInterval);
-  const allButtons = document.querySelectorAll(".option-button");
-  const normalizedCorrect = normalizeText(correctAnswer);
+  const AllButtons = document.querySelectorAll(".option-button");
+  const NormalizedCorrect = normalizeText(correctAnswer);
 
-  allButtons.forEach(button => {
+  AllButtons.forEach(button => {
     button.disabled = true;
-    const isCorrect = normalizeText(button.innerText) === normalizedCorrect;
-    button.classList.add(isCorrect ? "correct" : "incorrect");
+    const IsCorrect = normalizeText(button.innerText) === NormalizedCorrect;
+    button.classList.add(IsCorrect ? "correct" : "incorrect");
   });
 
-  const isUserCorrect = clickedButton && normalizeText(clickedButton.innerText) === normalizedCorrect;
+  const IsUserCorrect = clickedButton && normalizeText(clickedButton.innerText) === NormalizedCorrect;
 
-  if (isUserCorrect) {
+  if (IsUserCorrect) {
     score++;
-    jsConfetti.addConfetti();
-    feedbackMessage.innerText = "Bravo ! Bonne réponse 🎉";
+    JsConfetti.addConfetti();
+    FeedbackMessage.innerText = "Bravo ! Bonne réponse 🎉";
   } else if (clickedButton) {
-    feedbackMessage.innerText = "Dommage, ce n'était pas la bonne réponse.";
+    FeedbackMessage.innerText = "Dommage, ce n'était pas la bonne réponse.";
   } else {
-    feedbackMessage.innerText = "Temps écoulé ! La réponse est considérée comme fausse.";
+    FeedbackMessage.innerText = "Temps écoulé ! La réponse est considérée comme fausse.";
   }
 
-  feedbackMessage.style.display = "block";
-  nextButton.disabled = false;
+  FeedbackMessage.style.display = "block";
+  NextButton.disabled = false;
 }
 
 function showClassement() {
-  const classement = JSON.parse(localStorage.getItem("classement")) || [];
-  const classementContainer = document.getElementById("classement-container");
-  const classementListe = document.getElementById("classement-liste");
+  const Classement = JSON.parse(localStorage.getItem("classement")) || [];
+  const ClassementContainer = document.getElementById("classement-container");
+  const ClassementListe = document.getElementById("classement-liste");
 
   // --- Si le classement est déjà visible, on le cache ---
-  if (classementContainer.style.display === 'block') {
-    classementContainer.style.display = 'none';
+  if (ClassementContainer.style.display === 'block') {
+    ClassementContainer.style.display = 'none';
     return;
   }
 
   // --- Sinon on l'affiche ---
-  classementListe.innerHTML = "";
+  ClassementListe.innerHTML = "";
 
-  if (classement.length === 0) {
-    classementListe.innerHTML = '<li>Aucun score enregistré pour l’instant !</li>';
+  if (Classement.length === 0) {
+    ClassementListe.innerHTML = '<li>Aucun score enregistré pour l’instant !</li>';
   } else {
-    classement.sort((a, b) => b.score - a.score);
+    Classement.sort((a, b) => b.score - a.score);
 
-    classement.forEach((joueur, index) => {
-      const item = document.createElement('li');
-      item.textContent = `${index + 1}. ${joueur.pseudo} - ${joueur.score} / ${quizz_film.questions.length}`;
-      classementListe.appendChild(item);
+    Classement.forEach((joueur, index) => {
+      const Item = document.createElement('li');
+      Item.textContent = `${index + 1}. ${joueur.pseudo} - ${joueur.score} / ${quizz_film.questions.length}`;
+      ClassementListe.appendChild(Item);
     });
   }
 
-  classementContainer.style.display = 'block';
+  ClassementContainer.style.display = 'block';
 }
 
 // --- Événements ---
-startButton.addEventListener("click", () => {
-  pseudo = pseudoInput.value.trim();
+StartButton.addEventListener("click", () => {
+  pseudo = PseudoInput.value.trim();
   if (!pseudo) {
     alert("Merci de rentrer un pseudo pour commencer !");
     return;
@@ -183,40 +183,40 @@ startButton.addEventListener("click", () => {
   currentQuestionIndex = 0;
   score = 0;
 
-  setDisplay([pseudoContainer], "none");
-  setDisplay([optionsContainer], "grid");
-  setDisplay([questionElement, nextButton, timerContainer], "block");
-  replayButton.style.display = "none";
+  setDisplay([PseudoContainer], "none");
+  setDisplay([OptionsContainer], "grid");
+  setDisplay([QuestionElement, NextButton, TimerContainer], "block");
+  ReplayButton.style.display = "none";
 
   loadQuestion();
 });
 
 // --- Feature du bouton Next ---
-nextButton.addEventListener("click", () => {
+NextButton.addEventListener("click", () => {
   currentQuestionIndex++;
   if (currentQuestionIndex < quizz_film.questions.length) {
     loadQuestion();
   } else {
     clearInterval(timerInterval);
-    timerContainer.style.display = "none";
+    TimerContainer.style.display = "none";
 
     let classement = JSON.parse(localStorage.getItem("classement")) || [];
     classement.push({ pseudo, score });
     classement.sort((a, b) => b.score - a.score);
     localStorage.setItem("classement", JSON.stringify(classement));
 
-    questionElement.innerText = `C'est fini, merci ${pseudo} d'avoir participé !\nTon score : ${score} / ${quizz_film.questions.length}`;
-    optionsContainer.innerHTML = "";
-    nextButton.style.display = "none";
-    replayButton.style.display = "inline-block";
-    feedbackMessage.style.display = "none";
+    QuestionElement.innerText = `C'est fini, merci ${pseudo} d'avoir participé !\nTon score : ${score} / ${quizz_film.questions.length}`;
+    OptionsContainer.innerHTML = "";
+    NextButton.style.display = "none";
+    ReplayButton.style.display = "inline-block";
+    FeedbackMessage.style.display = "none";
 
     showGifScore(score);
   }
 });
 
 // --- Feature du bouton Replay ---
-replayButton.addEventListener("click", resetQuiz);
+ReplayButton.addEventListener("click", resetQuiz);
 
 document.getElementById("reset-classement").addEventListener("click", () => {
   localStorage.removeItem("classement");
@@ -228,16 +228,16 @@ document.getElementById("show-classement").addEventListener("click", showClassem
 // --- Feature de la pression 'Entrée' sur les différents boutons ---
 document.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
-    if (pseudoContainer.style.display === "block") {
-      startButton.click();
-    } else if (replayButton.style.display === "inline-block") {
-      replayButton.click();
+    if (PseudoContainer.style.display === "block") {
+      StartButton.click();
+    } else if (ReplayButton.style.display === "inline-block") {
+      ReplayButton.click();
     } else if (
-      questionElement.style.display === "block" &&
-      nextButton.style.display !== "none" &&
-      !nextButton.disabled
+      QuestionElement.style.display === "block" &&
+      NextButton.style.display !== "none" &&
+      !NextButton.disabled
     ) {
-      nextButton.click();
+      NextButton.click();
     }
   }
 });
