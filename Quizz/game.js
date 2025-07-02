@@ -1,18 +1,18 @@
 import { quizz_film } from "./questions.js";
 
 // --- Sélection des éléments DOM ---
-const Welcome = document.getElementById("welcome")
-const FeedbackMessage = document.getElementById("feedback-message");
-const Timer = document.getElementById("time");
-const TimerContainer = document.querySelector(".timer");
-const PseudoContainer = document.getElementById("pseudo-container");
-const PseudoInput = document.getElementById("pseudo-input");
-const StartButton = document.getElementById("start-button");
-const ReplayButton = document.getElementById("replay-button");
-const QuestionElement = document.getElementById("question-text");
-const OptionsContainer = document.getElementById("options-container");
-const NextButton = document.getElementById("next-button");
-const JsConfetti = new JSConfetti();
+const WELCOME = document.getElementById("welcome")
+const FEEDBACKMESSAGE = document.getElementById("feedback-message");
+const TIMER = document.getElementById("time");
+const TIMERCONTAINER = document.querySelector(".timer");
+const PSEUDOCONTAINER = document.getElementById("pseudo-container");
+const PSEUDOINPUT = document.getElementById("pseudo-input");
+const STARTBUTTON = document.getElementById("start-button");
+const REPLAYBUTTON = document.getElementById("replay-button");
+const QUESTIONELEMENT = document.getElementById("question-text");
+const OPTIONSCONTAINER = document.getElementById("options-container");
+const NEXTBUTTON = document.getElementById("next-button");
+const JSCONFETTI = new JSConfetti();
 
 // --- Sélection des éléments GIF ---
 const GifScores = {
@@ -62,16 +62,16 @@ function resetQuiz() {
   currentQuestionIndex = 0;
   score = 0;
   timeLeft = 12;
-  Timer.textContent = timeLeft;
+  TIMER.textContent = timeLeft;
   quizOn = false;
-  PseudoInput.value = "";
+  PSEUDOINPUT.value = "";
 
   setDisplay(
-    [QuestionElement, OptionsContainer, NextButton, TimerContainer, FeedbackMessage],
+    [QUESTIONELEMENT, OPTIONSCONTAINER, NEXTBUTTON, TIMERCONTAINER, FEEDBACKMESSAGE],
     "none"
   );
-  setDisplay([PseudoContainer, Welcome], "block");
-  ReplayButton.style.display = "none";
+  setDisplay([PSEUDOCONTAINER, WELCOME], "block");
+  REPLAYBUTTON.style.display = "none";
   resetGifScores();
 }
 
@@ -79,25 +79,25 @@ function resetQuiz() {
 function loadQuestion() {
   clearInterval(timerInterval);
   timeLeft = 12;
-  Timer.textContent = timeLeft;
+  TIMER.textContent = timeLeft;
   startTimer();
 
-  setDisplay([FeedbackMessage, Welcome], "none");
-  FeedbackMessage.innerText = "";
-  NextButton.disabled = true;
+  setDisplay([FEEDBACKMESSAGE, WELCOME], "none");
+  FEEDBACKMESSAGE.innerText = "";
+  NEXTBUTTON.disabled = true;
 
-  const CurrentQuestion = quizz_film.questions[currentQuestionIndex];
-  QuestionElement.innerText = CurrentQuestion.text;
-  OptionsContainer.innerHTML = "";
+  const CURRENTQUESTION = quizz_film.questions[currentQuestionIndex];
+  QUESTIONELEMENT.innerText = CURRENTQUESTION.text;
+  OPTIONSCONTAINER.innerHTML = "";
 
-  CurrentQuestion.options.forEach((optionText) => {
-    const OptionBtn = document.createElement("button");
-    OptionBtn.innerText = optionText;
-    OptionBtn.classList.add("option-button");
-    OptionsContainer.appendChild(OptionBtn);
+  CURRENTQUESTION.options.forEach((optionText) => {
+    const OPTIONBTN = document.createElement("button");
+    OPTIONBTN.innerText = optionText;
+    OPTIONBTN.classList.add("option-button");
+    OPTIONSCONTAINER.appendChild(OPTIONBTN);
 
-    OptionBtn.addEventListener("click", () =>
-      checkAnswer(OptionBtn, CurrentQuestion.correct_answer)
+    OPTIONBTN.addEventListener("click", () =>
+      checkAnswer(OPTIONBTN, CURRENTQUESTION.correct_answer)
     );
   });
 }
@@ -105,7 +105,7 @@ function loadQuestion() {
 function startTimer() {
   timerInterval = setInterval(() => {
     timeLeft--;
-    Timer.textContent = timeLeft;
+    TIMER.textContent = timeLeft;
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
       if (quizOn) {
@@ -117,63 +117,63 @@ function startTimer() {
 
 function checkAnswer(clickedButton, correctAnswer) {
   clearInterval(timerInterval);
-  const AllButtons = document.querySelectorAll(".option-button");
-  const NormalizedCorrect = normalizeText(correctAnswer);
+  const ALLBUTTONS = document.querySelectorAll(".option-button");
+  const NORMALIZEDCORRECT = normalizeText(correctAnswer);
 
-  AllButtons.forEach(button => {
+  ALLBUTTONS.forEach(button => {
     button.disabled = true;
-    const IsCorrect = normalizeText(button.innerText) === NormalizedCorrect;
-    button.classList.add(IsCorrect ? "correct" : "incorrect");
+    const ISCORRECT = normalizeText(button.innerText) === NORMALIZEDCORRECT;
+    button.classList.add(ISCORRECT ? "correct" : "incorrect");
   });
 
-  const IsUserCorrect = clickedButton && normalizeText(clickedButton.innerText) === NormalizedCorrect;
+  const ISUSERCORRECT = clickedButton && normalizeText(clickedButton.innerText) === NORMALIZEDCORRECT;
 
-  if (IsUserCorrect) {
+  if (ISUSERCORRECT) {
     score++;
-    JsConfetti.addConfetti();
-    FeedbackMessage.innerText = "Bravo ! Bonne réponse 🎉";
+    JSCONFETTI.addConfetti();
+    FEEDBACKMESSAGE.innerText = "Bravo ! Bonne réponse 🎉";
   } else if (clickedButton) {
-    FeedbackMessage.innerText = "Dommage, ce n'était pas la bonne réponse.";
+    FEEDBACKMESSAGE.innerText = "Dommage, ce n'était pas la bonne réponse.";
   } else {
-    FeedbackMessage.innerText = "Temps écoulé ! La réponse est considérée comme fausse.";
+    FEEDBACKMESSAGE.innerText = "Temps écoulé ! La réponse est considérée comme fausse.";
   }
 
-  FeedbackMessage.style.display = "block";
-  NextButton.disabled = false;
+  FEEDBACKMESSAGE.style.display = "block";
+  NEXTBUTTON.disabled = false;
 }
 
 function showClassement() {
-  const Classement = JSON.parse(localStorage.getItem("classement")) || [];
-  const ClassementContainer = document.getElementById("classement-container");
-  const ClassementListe = document.getElementById("classement-liste");
+  const CLASSEMENT = JSON.parse(localStorage.getItem("classement")) || [];
+  const CLASSEMENTCONTAINER = document.getElementById("classement-container");
+  const CLASSEMENTLISTE = document.getElementById("classement-liste");
 
   // --- Si le classement est déjà visible, on le cache ---
-  if (ClassementContainer.style.display === 'block') {
-    ClassementContainer.style.display = 'none';
+  if (CLASSEMENTCONTAINER.style.display === 'block') {
+    CLASSEMENTCONTAINER.style.display = 'none';
     return;
   }
 
   // --- Sinon on l'affiche ---
-  ClassementListe.innerHTML = "";
+  CLASSEMENTLISTE.innerHTML = "";
 
-  if (Classement.length === 0) {
-    ClassementListe.innerHTML = '<li>Aucun score enregistré pour l’instant !</li>';
+  if (CLASSEMENT.length === 0) {
+    CLASSEMENTLISTE.innerHTML = '<li>Aucun score enregistré pour l’instant !</li>';
   } else {
-    Classement.sort((a, b) => b.score - a.score);
+    CLASSEMENT.sort((a, b) => b.score - a.score);
 
-    Classement.forEach((joueur, index) => {
-      const Item = document.createElement('li');
-      Item.textContent = `${index + 1}. ${joueur.pseudo} - ${joueur.score} / ${quizz_film.questions.length}`;
-      ClassementListe.appendChild(Item);
+    CLASSEMENT.forEach((joueur, index) => {
+      const ITEM = document.createElement('li');
+      ITEM.textContent = `${index + 1}. ${joueur.pseudo} - ${joueur.score} / ${quizz_film.questions.length}`;
+      CLASSEMENTLISTE.appendChild(ITEM);
     });
   }
 
-  ClassementContainer.style.display = 'block';
+  CLASSEMENTCONTAINER.style.display = 'block';
 }
 
 // --- Événements ---
-StartButton.addEventListener("click", () => {
-  pseudo = PseudoInput.value.trim();
+STARTBUTTON.addEventListener("click", () => {
+  pseudo = PSEUDOINPUT.value.trim();
   if (!pseudo) {
     alert("Merci de rentrer un pseudo pour commencer !");
     return;
@@ -183,40 +183,40 @@ StartButton.addEventListener("click", () => {
   currentQuestionIndex = 0;
   score = 0;
 
-  setDisplay([PseudoContainer], "none");
-  setDisplay([OptionsContainer], "grid");
-  setDisplay([QuestionElement, NextButton, TimerContainer], "block");
-  ReplayButton.style.display = "none";
+  setDisplay([PSEUDOCONTAINER], "none");
+  setDisplay([OPTIONSCONTAINER], "grid");
+  setDisplay([QUESTIONELEMENT, NEXTBUTTON, TIMERCONTAINER], "block");
+  REPLAYBUTTON.style.display = "none";
 
   loadQuestion();
 });
 
 // --- Feature du bouton Next ---
-NextButton.addEventListener("click", () => {
+NEXTBUTTON.addEventListener("click", () => {
   currentQuestionIndex++;
   if (currentQuestionIndex < quizz_film.questions.length) {
     loadQuestion();
   } else {
     clearInterval(timerInterval);
-    TimerContainer.style.display = "none";
+    TIMERCONTAINER.style.display = "none";
 
     let classement = JSON.parse(localStorage.getItem("classement")) || [];
     classement.push({ pseudo, score });
     classement.sort((a, b) => b.score - a.score);
     localStorage.setItem("classement", JSON.stringify(classement));
 
-    QuestionElement.innerText = `C'est fini, merci ${pseudo} d'avoir participé !\nTon score : ${score} / ${quizz_film.questions.length}`;
-    OptionsContainer.innerHTML = "";
-    NextButton.style.display = "none";
-    ReplayButton.style.display = "inline-block";
-    FeedbackMessage.style.display = "none";
+    QUESTIONELEMENT.innerText = `C'est fini, merci ${pseudo} d'avoir participé !\nTon score : ${score} / ${quizz_film.questions.length}`;
+    OPTIONSCONTAINER.innerHTML = "";
+    NEXTBUTTON.style.display = "none";
+    REPLAYBUTTON.style.display = "inline-block";
+    FEEDBACKMESSAGE.style.display = "none";
 
     showGifScore(score);
   }
 });
 
 // --- Feature du bouton Replay ---
-ReplayButton.addEventListener("click", resetQuiz);
+REPLAYBUTTON.addEventListener("click", resetQuiz);
 
 document.getElementById("reset-classement").addEventListener("click", () => {
   localStorage.removeItem("classement");
@@ -228,16 +228,16 @@ document.getElementById("show-classement").addEventListener("click", showClassem
 // --- Feature de la pression 'Entrée' sur les différents boutons ---
 document.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
-    if (PseudoContainer.style.display === "block") {
-      StartButton.click();
-    } else if (ReplayButton.style.display === "inline-block") {
-      ReplayButton.click();
+    if (PSEUDOCONTAINER.style.display === "block") {
+      STARTBUTTON.click();
+    } else if (REPLAYBUTTON.style.display === "inline-block") {
+      REPLAYBUTTON.click();
     } else if (
-      QuestionElement.style.display === "block" &&
-      NextButton.style.display !== "none" &&
-      !NextButton.disabled
+      QUESTIONELEMENT.style.display === "block" &&
+      NEXTBUTTON.style.display !== "none" &&
+      !NEXTBUTTON.disabled
     ) {
-      NextButton.click();
+      NEXTBUTTON.click();
     }
   }
 });
