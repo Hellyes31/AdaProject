@@ -1,7 +1,7 @@
 import { quizz_film } from "./questions.js";
 
 // --- Sélection des éléments DOM ---
-const WELCOME = document.getElementById("welcome")
+const WELCOME = document.getElementById("welcome");
 const FEEDBACKMESSAGE = document.getElementById("feedback-message");
 const TIMER = document.getElementById("time");
 const TIMERCONTAINER = document.querySelector(".timer");

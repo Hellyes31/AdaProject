@@ -21,7 +21,7 @@ export const quizz_film = {
       correct_answer: "Braveheart"
     },
  {
-      text: '"On accepte l`amour que l`on pense mériter"',
+      text: `"On accepte l'amour que l'on pense mériter"`,
       options: [
         "Le Monde de Charlie",
         "Et plus si affinités",
